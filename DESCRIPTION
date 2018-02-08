@@ -1,0 +1,10 @@
+Package: trmtools
+Type: Package
+Title: Tools for the analysis of transcriptional regulatory modules (TRMs)
+Version: 0.1.0
+Authors@R: person("Diego", "Diez", email = "diego10ruiz@gmail.com", role = c("aut", "cre"))
+Description: This package includes tools for inferring, analyzing and plotting TRMs.
+License: MIT + file LICENSE
+Encoding: UTF-8
+LazyData: true
+RoxygenNote: 6.0.1
