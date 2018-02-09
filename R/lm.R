@@ -25,5 +25,28 @@ trm_lm <- function(x, y) {
   colnames(coefs) <- colnames(y)
   colnames(pvals) <- colnames(y)
 
-  list(coef = coefs, pval = pvals)
+  z <- list(coef = coefs, pval = pvals)
+  class(z) <- "trm"
+  z
+}
+
+#' Fits a linear model to all genes using a matrix of regulators' activities as predictors
+#' and a grouping variable.
+#'
+#' @param x matrix of regulators' activities.
+#' @param y matrix of genes' expression levels.
+#' @param group grouping variable.
+#'
+#' @export
+trm_lm_by_group <- function(x, y, group) {
+  if (length(group) != nrow(x)) stop("length of group and nrow of x don't agree.")
+  if (length(group) != nrow(y)) stop("length of group and nrow of y don't agree.")
+
+  groups <- unique(group)
+  lapply(groups, function(g) {
+    sel.group <- group == g
+    xg <- x[sel.group, , drop = FALSE]
+    yg <- y[sel.group, , drop = FALSE]
+    trm_lm(xg, yg)
+  })
 }
