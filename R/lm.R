@@ -47,6 +47,6 @@ trn_lm_by_group <- function(x, y, group) {
     sel.group <- group == g
     xg <- x[sel.group, , drop = FALSE]
     yg <- y[sel.group, , drop = FALSE]
-    trm_lm(xg, yg)
+    trn_lm(xg, yg)
   })
 }
