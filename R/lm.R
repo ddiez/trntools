@@ -4,7 +4,7 @@
 #' @param y matrix of genes' expression levels.
 #'
 #' @export
-trm_lm <- function(x, y) {
+trn_lm <- function(x, y) {
   n <- ncol(x)
   mod <- lm(y ~ x)
 
@@ -26,7 +26,7 @@ trm_lm <- function(x, y) {
   colnames(pvals) <- colnames(y)
 
   z <- list(coef = coefs, pval = pvals)
-  class(z) <- "trm"
+  class(z) <- "trn"
   z
 }
 
@@ -38,7 +38,7 @@ trm_lm <- function(x, y) {
 #' @param group grouping variable.
 #'
 #' @export
-trm_lm_by_group <- function(x, y, group) {
+trn_lm_by_group <- function(x, y, group) {
   if (length(group) != nrow(x)) stop("length of group and nrow of x don't agree.")
   if (length(group) != nrow(y)) stop("length of group and nrow of y don't agree.")
 

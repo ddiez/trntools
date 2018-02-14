@@ -1,4 +1,4 @@
-trm2tbl_graph <- function(x) {
+trn2tbl_graph <- function(x) {
   x <- igraph::graph_from_incidence_matrix(x, directed = TRUE, mode = "out", weighted = TRUE)
 
   x <- x %>% as_tbl_graph %>%
@@ -18,19 +18,19 @@ trm2tbl_graph <- function(x) {
   x
 }
 
-#' Plot TRMs.
+#' Plot transcriptional regulatory networks.
 #'
-#' @param x a TRM object.
+#' @param x a network object with attributes.
 #'
 #' @export
 #' @rdname plot_trm
-plot_trm <- function(x, ...) {
-  UseMethod("plot_trm")
+plot_trn <- function(x, ...) {
+  UseMethod("plot_trn")
 }
 
-#' @rdname plot_trm
+#' @rdname plot_trn
 #' @export
-plot_trm.data.frame <- function(x, node.size = 10, label.size = 3, regulator.color = "palevioletred1", target.color = "turquoise3") {
+plot_trn.data.frame <- function(x, node.size = 10, label.size = 3, regulator.color = "palevioletred1", target.color = "turquoise3") {
   g <- ggraph(x) + theme_graph(base_family = "Arial", base_size = 12)
 
   label <- function(x) {
@@ -64,8 +64,8 @@ plot_trm.data.frame <- function(x, node.size = 10, label.size = 3, regulator.col
   g
 }
 
-#' @rdname plot_trm
+#' @rdname plot_trn
 #' @export
-plot_trm.tbl_graph <- function(x, layout = "nicely", ...) {
+plot_trn.tbl_graph <- function(x, layout = "nicely", ...) {
   plot_trm(create_layout(x, layout = layout), ...)
 }
