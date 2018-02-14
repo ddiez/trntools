@@ -1,5 +1,5 @@
 trn2tbl_graph <- function(x) {
-  x <- igraph::graph_from_incidence_matrix(x, directed = TRUE, mode = "out", weighted = TRUE)
+  x <- graph_from_incidence_matrix(x, directed = TRUE, mode = "out", weighted = TRUE)
 
   x <- x %>% as_tbl_graph %>%
     activate(nodes) %>%
