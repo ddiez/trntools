@@ -1,6 +1,6 @@
-trmtools
+trntools
 ========
 
 ## About
 
-Tools for the analysis of transcriptional regulatory modules (TRMs).
+Tools for the analysis of transcriptional regulatory networks.
