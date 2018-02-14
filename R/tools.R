@@ -22,3 +22,16 @@ trn2tbl_graph <- function(x) {
 
   x
 }
+
+
+#' Computes RMSD between two TRN models.
+#'
+#' Takes a real and predicted model and computes the root mean squared distance.
+#'
+#' @param x a TRN object.
+#' @param y a TRN object.
+#'
+#' @export
+trn_rmsd <- function(x, y) {
+  mean(sqrt((x - y)^2))
+}
