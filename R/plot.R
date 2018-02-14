@@ -23,7 +23,7 @@ trn2tbl_graph <- function(x) {
 #' @param x a network object with attributes.
 #'
 #' @export
-#' @rdname plot_trm
+#' @rdname plot_trn
 plot_trn <- function(x, ...) {
   UseMethod("plot_trn")
 }
@@ -67,5 +67,5 @@ plot_trn.data.frame <- function(x, node.size = 10, label.size = 3, regulator.col
 #' @rdname plot_trn
 #' @export
 plot_trn.tbl_graph <- function(x, layout = "nicely", ...) {
-  plot_trm(create_layout(x, layout = layout), ...)
+  plot_trn(create_layout(x, layout = layout), ...)
 }
