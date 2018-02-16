@@ -31,7 +31,7 @@ plot_trn <- function(x, ...) {
 #' @rdname plot_trn
 #' @export
 plot_trn.data.frame <- function(x, node.size = 10, label.size = 3, regulator.color = "palevioletred1", target.color = "turquoise3") {
-  g <- ggraph(x) + theme_graph(base_family = "Arial", base_size = 12)
+  g <- ggraph(x) + theme_graph()
 
   label <- function(x) {
     l <- rep("repressor", length(x))
