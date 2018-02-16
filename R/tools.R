@@ -35,3 +35,43 @@ trn2tbl_graph <- function(x) {
 trn_rmsd <- function(x, y) {
   mean(sqrt((x - y)^2))
 }
+
+
+#' Computes percentage of coherent directions between two TRN models.
+#'
+#' @param x a TRN object.
+#' @param y a TRN object.
+#' @param direction whether to use all edges, only positive one or negative ones.
+#'
+#' @export
+trn_compare <- function(x, y, direction = "all") {
+  match.arg(direction, c("all", "positive", "negative"))
+
+  x <- x[lower.tri(x)]
+  y <- y[lower.tri(y)]
+
+  switch(direction,
+         all = check_direction(x, y),
+         positive = check_positive(x, y),
+         negative = check_negative(x, y))
+}
+
+check_direction <- function(x, y) {
+  n <- length(x)
+  ndiff <- sum(abs(sign(x) - sign(y)))
+  (n - ndiff)/ n
+}
+
+check_positive <- function(x, y) {
+  sel <- x > 0
+  xs <- sum(sel)
+  ys <- sum(y[sel] > 0)
+  ys / xs
+}
+
+check_negative <- function(x, y) {
+  sel <- x < 0
+  xs <- sum(sel)
+  ys <- sum(y[sel] < 0)
+  ys / xs
+}
