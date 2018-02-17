@@ -39,8 +39,8 @@ trn_rmsd <- function(x, y) {
 
 #' Computes percentage of coherent directions between two TRN models.
 #'
-#' @param x a TRN object.
-#' @param y a TRN object.
+#' @param x a TRN object (truth).
+#' @param y a TRN object (predicted).
 #' @param direction whether to use all edges, only positive one or negative ones.
 #'
 #' @export
@@ -58,8 +58,8 @@ trn_compare <- function(x, y, direction = "all") {
 
 check_direction <- function(x, y) {
   n <- length(x)
-  ndiff <- sum(abs(sign(x) - sign(y)))
-  (n - ndiff)/ n
+  ndiff <- sum((sign(x) - sign(y)) != 0)
+  (n - ndiff) / n
 }
 
 check_positive <- function(x, y) {
