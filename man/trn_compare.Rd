@@ -7,9 +7,9 @@
 trn_compare(x, y, direction = "all")
 }
 \arguments{
-\item{x}{a TRN object.}
+\item{x}{a TRN object (truth).}
 
-\item{y}{a TRN object.}
+\item{y}{a TRN object (predicted).}
 
 \item{direction}{whether to use all edges, only positive one or negative ones.}
 }
