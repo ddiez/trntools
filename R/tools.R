@@ -47,9 +47,6 @@ trn_rmsd <- function(x, y) {
 trn_compare <- function(x, y, direction = "all") {
   match.arg(direction, c("all", "positive", "negative"))
 
-  x <- x[lower.tri(x)]
-  y <- y[lower.tri(y)]
-
   switch(direction,
          all = check_direction(x, y),
          positive = check_positive(x, y),
