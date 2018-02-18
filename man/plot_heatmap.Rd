@@ -5,12 +5,14 @@
 \alias{plot_heatmap.matrix}
 \title{Plot a heatmap of a trn.}
 \usage{
-plot_heatmap(x)
+plot_heatmap(x, guide = TRUE)
 
-\method{plot_heatmap}{matrix}(x)
+\method{plot_heatmap}{matrix}(x, guide = TRUE)
 }
 \arguments{
 \item{x}{a TRN object.}
+
+\item{guide}{logical; whether to plot the guide.}
 }
 \description{
 Plot a heatmap of a trn.

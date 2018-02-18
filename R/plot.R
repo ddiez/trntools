@@ -35,7 +35,7 @@ plot_trn.data.frame <- function(x, node.size = 10, label.size = 3, regulator.col
 
   label <- function(x) {
     l <- rep("repressor", length(x))
-    l[x == "red"] <- "activator"
+    l[x == "palevioletred1"] <- "activator"
     l
   }
 
@@ -74,15 +74,16 @@ plot_trn.tbl_graph <- function(x, layout = "nicely", ...) {
 #' Plot a heatmap of a trn.
 #'
 #' @param x a TRN object.
+#' @param guide logical; whether to plot the guide.
 #'
 #' @export
-plot_heatmap <- function(x) {
+plot_heatmap <- function(x, guide = TRUE) {
   UseMethod("plot_heatmap")
 }
 
 #' @rdname plot_heatmap
 #' @export
-plot_heatmap.matrix <- function(x) {
+plot_heatmap.matrix <- function(x, guide = TRUE) {
   d <- x %>% as.data.frame() %>% rownames_to_column("regulator") %>%
     gather("gene", "activity", -regulator) %>%
     mutate(regulator = factor(regulator, rownames(x))) %>%
@@ -91,8 +92,11 @@ plot_heatmap.matrix <- function(x) {
   p <- ggplot(d, aes(x = gene, y = regulator, fill = activity)) + geom_tile() +
     scale_x_discrete(expand = c(0, 0)) +
     scale_y_discrete(expand = c(0, 0)) +
-    scale_fill_gradient2(low = "steelblue1", mid = "white", high = "palevioletred1", midpoint = 0, guide = "legend") +
+    scale_fill_gradient2(low = "steelblue1", mid = "white", high = "palevioletred1", midpoint = 0, guide = guide_legend(reverse = TRUE) ) +
     labs(x = NULL, y = NULL, title = NULL)
+
+  if (!guide)
+    p <- p + guides(fill = FALSE)
 
   if (ncol(x) > 20)
     p <- p + theme(axis.text.x = element_blank(), axis.ticks.x = element_blank())
