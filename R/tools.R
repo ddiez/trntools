@@ -72,3 +72,18 @@ check_negative <- function(x, y) {
   ys <- sum(y[sel] < 0)
   ys / xs
 }
+
+
+#' Filter a TRN at a given FDR.
+#'
+#' @param x a TRN model.
+#' @param fdr FDR level.
+#'
+#' @export
+trn_filter <- function(x, fdr = 0.01) {
+  xc <- x[["coef"]][-1, , drop = FALSE]
+  xp <- x[["pval"]][-1, , drop = FALSE]
+  xp <- p.adjust(xp, method = "bonferroni")
+  xc[ xp > fdr] <- 0
+  xc
+}
