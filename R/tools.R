@@ -78,12 +78,13 @@ check_negative <- function(x, y) {
 #'
 #' @param x a TRN model.
 #' @param fdr FDR level.
+#' @param method method for p.adjust().
 #'
 #' @export
-trn_filter <- function(x, fdr = 0.01) {
+trn_filter <- function(x, fdr = 0.01, method = "bonferroni") {
   xc <- x[["coef"]][-1, , drop = FALSE]
   xp <- x[["pval"]][-1, , drop = FALSE]
-  xp <- p.adjust(xp, method = "bonferroni")
+  xp <- p.adjust(xp, method = method)
   xc[ xp > fdr] <- 0
   xc
 }

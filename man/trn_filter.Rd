@@ -4,12 +4,14 @@
 \alias{trn_filter}
 \title{Filter a TRN at a given FDR.}
 \usage{
-trn_filter(x, fdr = 0.01)
+trn_filter(x, fdr = 0.01, method = "bonferroni")
 }
 \arguments{
 \item{x}{a TRN model.}
 
 \item{fdr}{FDR level.}
+
+\item{method}{method for p.adjust().}
 }
 \description{
 Filter a TRN at a given FDR.
