@@ -16,6 +16,7 @@ knitr::opts_chunk$set(
 )
 
 library(trntools)
+library(ggplot2)
 ```
 
 ```{r}
@@ -31,8 +32,8 @@ x["R2", "G1"] <- 1
 x
 ```
 
-```{r}
+```{r fig.width=4, fig.height=4, fig.align='center'}
 g <- trn2tbl_graph(x)
-plot_trn(g, "circle")
+plot_trn(g, "circle") + coord_fixed() + theme(legend.position = "none")
 ```
 
