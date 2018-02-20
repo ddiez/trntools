@@ -3,11 +3,14 @@
 \name{plot_heatmap}
 \alias{plot_heatmap}
 \alias{plot_heatmap.matrix}
+\alias{plot_heatmap.data.frame}
 \title{Plot a heatmap of a trn.}
 \usage{
 plot_heatmap(x, guide = TRUE)
 
 \method{plot_heatmap}{matrix}(x, guide = TRUE)
+
+\method{plot_heatmap}{data.frame}(x, guide = TRUE)
 }
 \arguments{
 \item{x}{a TRN object.}

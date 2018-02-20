@@ -89,7 +89,13 @@ plot_heatmap.matrix <- function(x, guide = TRUE) {
     mutate(regulator = factor(regulator, rownames(x))) %>%
     mutate(gene = factor(gene, levels = colnames(x)))
 
-  p <- ggplot(d, aes(x = gene, y = regulator, fill = activity)) + geom_tile() +
+  plot_heatmap(d)
+}
+
+#' @rdname plot_heatmap
+#' @export
+plot_heatmap.data.frame <- function(x, guide = TRUE) {
+  p <- ggplot(x, aes(x = gene, y = regulator, fill = activity)) + geom_tile() +
     scale_x_discrete(expand = c(0, 0)) +
     scale_y_discrete(expand = c(0, 0)) +
     scale_fill_gradient2(low = "steelblue1", mid = "white", high = "palevioletred1", midpoint = 0, guide = guide_legend(reverse = TRUE) ) +
