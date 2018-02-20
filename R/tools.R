@@ -49,6 +49,7 @@ trn_compare <- function(x, y, direction = "all") {
 
   switch(direction,
          all = check_direction(x, y),
+         empty = check_empty(x, y),
          positive = check_positive(x, y),
          negative = check_negative(x, y))
 }
@@ -62,7 +63,7 @@ check_direction <- function(x, y) {
 check_empty <- function(x, y) {
   sel <- x == 0
   xs <- sum(sel)
-  ys <- sum(y[sel] > 0)
+  ys <- sum(y[sel] == 0)
   ys / xs
 }
 
