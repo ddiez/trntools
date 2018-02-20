@@ -1,0 +1,38 @@
+---
+title: "Introduction to trntools"
+author: "Diego Diez"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Introduction to trntools}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+
+library(trntools)
+```
+
+```{r}
+# create data set.
+x <- matrix(0, nrow = 3, ncol = 5,
+            dimnames = list(
+              paste0("R", 1:3),
+              paste0("G", 1:5)
+            ))
+x["R1", "G1"] <- 1
+x["R1", "G2"] <- -1
+x["R2", "G1"] <- 1
+x
+```
+
+```{r}
+g <- trn2tbl_graph(x)
+plot_trn(g, "circle")
+```
+
