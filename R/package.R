@@ -7,6 +7,6 @@
 #'
 #' @import ggplot2 tidygraph ggraph
 #' @importFrom igraph graph_from_incidence_matrix
-#' @importFrom stats coef lm
+#' @importFrom stats coef lm p.adjust
 #'
 NULL
