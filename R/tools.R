@@ -41,11 +41,11 @@ trn_rmsd <- function(x, y) {
 #'
 #' @param x a TRN object (truth).
 #' @param y a TRN object (predicted).
-#' @param direction whether to use all edges, only positive one or negative ones.
+#' @param direction whether to use all edges, empty edges, positive edges or negative edges
 #'
 #' @export
 trn_compare <- function(x, y, direction = "all") {
-  match.arg(direction, c("all", "positive", "negative"))
+  match.arg(direction, c("all", "empty", "positive", "negative"))
 
   switch(direction,
          all = check_direction(x, y),
@@ -57,6 +57,13 @@ check_direction <- function(x, y) {
   n <- length(x)
   ndiff <- sum((sign(x) - sign(y)) != 0)
   (n - ndiff) / n
+}
+
+check_empty <- function(x, y) {
+  sel <- x == 0
+  xs <- sum(sel)
+  ys <- sum(y[sel] > 0)
+  ys / xs
 }
 
 check_positive <- function(x, y) {

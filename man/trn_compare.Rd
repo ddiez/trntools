@@ -11,7 +11,7 @@ trn_compare(x, y, direction = "all")
 
 \item{y}{a TRN object (predicted).}
 
-\item{direction}{whether to use all edges, only positive one or negative ones.}
+\item{direction}{whether to use all edges, empty edges, positive edges or negative edges}
 }
 \description{
 Computes percentage of coherent directions between two TRN models.
