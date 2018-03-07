@@ -9,7 +9,8 @@ Imports:
   ggplot2,
   tidygraph,
   ggraph,
-  igraph
+  igraph,
+  glmnet
 Suggests:
   testthat,
   knitr

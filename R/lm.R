@@ -50,3 +50,26 @@ trn_lm_by_group <- function(x, y, group) {
     trn_lm(xg, yg)
   })
 }
+
+#' @export
+trn_glmnet <- function(x, y) {
+  n <- ncol(x)
+
+  mod <- apply(y, 2, function(yy) {
+    glmnet(x, yy)
+  })
+
+  z <- list(models = mod)
+  class(z) <- "trn"
+  z
+}
+
+#' @export
+trn_filter_glmnet <- function(x, s = 0.01) {
+  z <- lapply(x$models, function(mod) {
+    as.matrix(coef(mod, s = s))[-1, , drop = FALSE]
+  })
+  z <- do.call(cbind, z)
+  colnames(z) <- names(x$models)
+  z
+}
