@@ -51,6 +51,12 @@ trn_lm_by_group <- function(x, y, group) {
   })
 }
 
+
+#' Fits a penalized linear model to all genes using a matrix of regulators' activities as predictors.
+#'
+#' @param x matrix of regulators' activities.
+#' @param y matrix of genes' expression levels.
+#'
 #' @export
 trn_glmnet <- function(x, y) {
   n <- ncol(x)
@@ -64,6 +70,11 @@ trn_glmnet <- function(x, y) {
   z
 }
 
+#' Filter a TRN at a given lambda for networks fitted using penalized regression.
+#'
+#' @param x a TRN model.
+#' @param s value of penalty parameter.
+#'
 #' @export
 trn_filter_glmnet <- function(x, s = 0.01) {
   z <- lapply(x$models, function(mod) {
