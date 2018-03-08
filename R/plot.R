@@ -39,7 +39,6 @@ plot_trn.data.frame <- function(x, node.size = 10, label.size = 3, regulator.col
     l
   }
 
-
   g <- g + geom_node_point(
     aes(shape = regulator, fill = regulator, color = regulator),
     size = node.size) +
