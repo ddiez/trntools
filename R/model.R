@@ -144,3 +144,7 @@ foo <- foo %>% activate(edges) %>% mutate(group = factor(group, levels = c("A", 
 
 plot_network(foo)
 plot_network(foo) + facet_edges(~group, drop = FALSE, ncol = 2)
+
+
+foo %>% to_matrix()
+foo %>% to_matrix() %>% to_trn()
