@@ -50,15 +50,17 @@ add_edge <- function(x, from, to, activity, group = NULL) {
 
 to_matrix <- function(x, regulators = FALSE) {
   reg <- get_regulators(x)
-  gen <- get_genes(x, regulators = regulators)
+  gen <- get_genes(x, regulators = TRUE)
 
   y <- matrix(0, nrow = length(reg), ncol = length(gen), dimnames = list(reg, gen))
 
   edges <- to_edges(x)
 
   for (k in seq_len(nrow(edges))) {
-    y[edges[k, "from"], edges[k, "to"]] <- edges[k, "activity"]
+    y[edges[[k, "from"]], edges[[k, "to"]]] <- edges[[k, "activity"]]
   }
+  if (!regulators)
+    y <- y[, get_genes(x)]
   y
 }
 
