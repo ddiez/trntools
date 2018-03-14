@@ -48,7 +48,10 @@ add_edge <- function(x, from, to, activity, group = NULL) {
   tbl_graph(nodes, edges, directed = TRUE)
 }
 
-to_matrix <- function(x, regulators = FALSE) {
+to_matrix <- function(x) {
+  UseMethod("to_matrix")
+}
+to_matrix.tbl_graph <- function(x, regulators = FALSE) {
   reg <- get_regulators(x)
   gen <- get_genes(x, regulators = TRUE)
 
