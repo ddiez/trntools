@@ -76,6 +76,44 @@ to_trn.dgCMatrix <- function(x) {
   nodes <- tibble(name = c(rownames(x), colnames(x)))
   tbl_graph(nodes, edges)
 }
+
+plot_heatmap <- function(x, guide = TRUE) {
+  UseMethod("plot_heatmap")
+}
+
+plot_heatmap.tbl_graph <- function(x) {
+  plot_heatmap(to_matrix(x))
+}
+
+plot_heatmap.matrix <- function(x, guide = TRUE) {
+  d <- x %>% as.data.frame() %>% rownames_to_column("regulator") %>%
+    gather("gene", "activity", -regulator) %>%
+    mutate(regulator = factor(regulator, rownames(x))) %>%
+    mutate(gene = factor(gene, levels = colnames(x)))
+
+  plot_heatmap(d)
+}
+
+plot_heatmap.data.frame <- function(x, guide = TRUE, axis = c(TRUE, TRUE)) {
+  p <- ggplot(x, aes(x = gene, y = regulator, fill = activity)) + geom_tile() +
+    scale_x_discrete(expand = c(0, 0)) +
+    scale_y_discrete(expand = c(0, 0)) +
+    scale_fill_gradient2(low = "steelblue1", mid = "white", high = "palevioletred1", midpoint = 0, guide = guide_legend(reverse = TRUE) ) +
+    labs(x = NULL, y = NULL, title = NULL)
+
+  if (!guide)
+    p <- p + guides(fill = FALSE)
+
+  if (axis[1])
+    p <- p + theme(axis.text.x = element_blank(), axis.ticks.x = element_blank())
+
+  if (axis[2])
+    p <- p + theme(axis.text.y = element_blank(), axis.ticks.y = element_blank())
+
+  p
+}
+
+
 plot_network <- function(x) {
 
   p <- ggraph(x, "circle") + theme_graph(base_family = "Arial", strip_text_size = 20)
