@@ -55,7 +55,7 @@ to_matrix.tbl_graph <- function(x, regulators = FALSE) {
   reg <- get_regulators(x)
   gen <- get_genes(x, regulators = TRUE)
 
-  y <- matrix(0, nrow = length(reg), ncol = length(gen), dimnames = list(reg, gen))
+  y <- Matrix::Matrix(0, nrow = length(reg), ncol = length(gen), dimnames = list(reg, gen))
 
   edges <- to_edges(x)
 
