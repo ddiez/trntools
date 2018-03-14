@@ -67,6 +67,15 @@ to_matrix.tbl_graph <- function(x, regulators = FALSE) {
   y
 }
 
+to_trn <- function(x) {
+  UseMethod("to_trn")
+}
+
+to_trn.dgCMatrix <- function(x) {
+  edges <- summary(x) %>% as_tibble() %>% rename(from = i, to = j, activity = x)
+  nodes <- tibble(name = c(rownames(x), colnames(x)))
+  tbl_graph(nodes, edges)
+}
 plot_network <- function(x) {
 
   p <- ggraph(x, "circle") + theme_graph(base_family = "Arial", strip_text_size = 20)
