@@ -59,8 +59,6 @@ trn_lm_by_group <- function(x, y, group) {
 #'
 #' @export
 trn_glmnet <- function(x, y) {
-  n <- ncol(x)
-
   mod <- apply(y, 2, function(yy) {
     glmnet(x, yy)
   })
