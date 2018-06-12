@@ -52,16 +52,15 @@ trn_lm_by_group <- function(x, y, group) {
 }
 
 
-#' Fits a penalized linear model to all genes using a matrix of regulators' activities as predictors.
+#' Fits a penalized (elastic-net) linear model to all genes using a matrix of regulators' activities as predictors.
 #'
 #' @param x matrix of regulators' activities.
 #' @param y matrix of genes' expression levels.
+#' @param alpha control balance between lasso (alpha = 1) and ridge (alpha = 0) penalties.
 #'
 #' @export
-trn_glmnet <- function(x, y) {
-  mod <- apply(y, 2, function(yy) {
-    glmnet(x, yy)
-  })
+trn_glmnet <- function(x, y, alpha = 0.5) {
+  mod <- glmnet(x, y, family = "mgaussian", alpha = alpha)
 
   z <- list(models = mod)
   class(z) <- "trn"

@@ -2,15 +2,17 @@
 % Please edit documentation in R/lm.R
 \name{trn_glmnet}
 \alias{trn_glmnet}
-\title{Fits a penalized linear model to all genes using a matrix of regulators' activities as predictors.}
+\title{Fits a penalized (elastic-net) linear model to all genes using a matrix of regulators' activities as predictors.}
 \usage{
-trn_glmnet(x, y)
+trn_glmnet(x, y, alpha = 0.5)
 }
 \arguments{
 \item{x}{matrix of regulators' activities.}
 
 \item{y}{matrix of genes' expression levels.}
+
+\item{alpha}{control balance between lasso (alpha = 1) and ridge (alpha = 0) penalties.}
 }
 \description{
-Fits a penalized linear model to all genes using a matrix of regulators' activities as predictors.
+Fits a penalized (elastic-net) linear model to all genes using a matrix of regulators' activities as predictors.
 }
