@@ -6,16 +6,18 @@
 \alias{plot_heatmap.data.frame}
 \title{Plot a heatmap of a trn.}
 \usage{
-plot_heatmap(x, guide = TRUE)
+plot_heatmap(x, guide = TRUE, limits = NULL)
 
-\method{plot_heatmap}{matrix}(x, guide = TRUE)
+\method{plot_heatmap}{matrix}(x, guide = TRUE, limits = NULL)
 
-\method{plot_heatmap}{data.frame}(x, guide = TRUE)
+\method{plot_heatmap}{data.frame}(x, guide = TRUE, limits = NULL)
 }
 \arguments{
 \item{x}{a TRN object.}
 
 \item{guide}{logical; whether to plot the guide.}
+
+\item{limits}{set limits to scale_fill_gradient2().}
 }
 \description{
 Plot a heatmap of a trn.

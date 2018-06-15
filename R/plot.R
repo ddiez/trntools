@@ -74,30 +74,31 @@ plot_trn.tbl_graph <- function(x, layout = "nicely", ...) {
 #'
 #' @param x a TRN object.
 #' @param guide logical; whether to plot the guide.
+#' @param limits set limits to scale_fill_gradient2().
 #'
 #' @export
-plot_heatmap <- function(x, guide = TRUE) {
+plot_heatmap <- function(x, guide = TRUE, limits = NULL) {
   UseMethod("plot_heatmap")
 }
 
 #' @rdname plot_heatmap
 #' @export
-plot_heatmap.matrix <- function(x, guide = TRUE) {
+plot_heatmap.matrix <- function(x, guide = TRUE, limits = NULL) {
   d <- x %>% as.data.frame() %>% rownames_to_column("regulator") %>%
     gather("gene", "activity", -regulator) %>%
     mutate(regulator = factor(regulator, rownames(x))) %>%
     mutate(gene = factor(gene, levels = colnames(x)))
 
-  plot_heatmap(d)
+  plot_heatmap(d, guide = guide, limits = limits)
 }
 
 #' @rdname plot_heatmap
 #' @export
-plot_heatmap.data.frame <- function(x, guide = TRUE) {
+plot_heatmap.data.frame <- function(x, guide = TRUE, limits = NULL) {
   p <- ggplot(x, aes(x = gene, y = regulator, fill = activity)) + geom_tile() +
     scale_x_discrete(expand = c(0, 0)) +
     scale_y_discrete(expand = c(0, 0)) +
-    scale_fill_gradient2(low = "steelblue1", mid = "white", high = "palevioletred1", midpoint = 0, guide = guide_legend(reverse = TRUE) ) +
+    scale_fill_gradient2(low = "steelblue1", mid = "white", high = "palevioletred1", midpoint = 0, guide = guide_legend(reverse = TRUE), limits = limits) +
     labs(x = NULL, y = NULL, title = NULL)
 
   if (!guide)
