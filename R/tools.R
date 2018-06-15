@@ -56,28 +56,28 @@ trn_compare <- function(x, y, direction = "all") {
 
 check_direction <- function(x, y) {
   n <- length(x)
-  ndiff <- sum((sign(x) - sign(y)) != 0)
+  ndiff <- sum((sign(x) - sign(y)) != 0, na.rm = TRUE)
   (n - ndiff) / n
 }
 
 check_empty <- function(x, y) {
   sel <- x == 0
-  xs <- sum(sel)
-  ys <- sum(y[sel] == 0)
+  xs <- sum(sel, na.rm = TRUE)
+  ys <- sum(y[sel] == 0, na.rm = TRUE)
   ys / xs
 }
 
 check_positive <- function(x, y) {
   sel <- x > 0
-  xs <- sum(sel)
-  ys <- sum(y[sel] > 0)
+  xs <- sum(sel, na.rm = TRUE)
+  ys <- sum(y[sel] > 0, na.rm = TRUE)
   ys / xs
 }
 
 check_negative <- function(x, y) {
   sel <- x < 0
-  xs <- sum(sel)
-  ys <- sum(y[sel] < 0)
+  xs <- sum(sel, na.rm = TRUE)
+  ys <- sum(y[sel] < 0, na.rm = TRUE)
   ys / xs
 }
 
