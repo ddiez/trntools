@@ -57,14 +57,49 @@ trn_lm_by_group <- function(x, y, group) {
 #' @param x matrix of regulators' activities.
 #' @param y matrix of genes' expression levels.
 #' @param alpha control balance between lasso (alpha = 1) and ridge (alpha = 0) penalties.
+#' @param mc.cores cores to use for parallel processing.
 #'
 #' @export
-trn_glmnet <- function(x, y, alpha = 0.5) {
-  mod <- glmnet(x, y, family = "mgaussian", alpha = alpha)
+trn_glmnet <- function(x, y, alpha = 0.5, mc.cores = 1) {
+  # mod <- glmnet(x, y, family = "mgaussian", alpha = alpha)
+  #
+  # z <- list(models = mod)
+  # class(z) <- "trn"
+  # z
 
+  yn <- ncol(y)
+
+  mod <- parallel::mclapply(seq_len(yn),function(n) {
+    glmnet(x, y[, n], family = "gaussian", alpha = alpha)
+  }, mc.cores = mc.cores)
+  names(mod) <- colnames(y)
   z <- list(models = mod)
   class(z) <- "trn"
   z
+}
+
+#' trn_glmnet_by_group
+#'
+#' @param x matrix of regulators' activities.
+#' @param y matrix of genes' expression levels.
+#' @param group grouping variable.
+#' @param alpha control balance between lasso (alpha = 1) and ridge (alpha = 0) penalties.
+#' @param mc.cores cores to use for parallel processing.
+#'
+#' @export
+#'
+#' @examples
+trn_glmnet_by_group <- function(x, y, group, alpha = .5, mc.cores = 1) {
+  if (length(group) != nrow(x)) stop("length of group and nrow of x don't agree.")
+  if (length(group) != nrow(y)) stop("length of group and nrow of y don't agree.")
+
+  groups <- unique(group)
+  lapply(groups, function(g) {
+    sel.group <- group == g
+    xg <- x[sel.group, , drop = FALSE]
+    yg <- y[sel.group, , drop = FALSE]
+    trn_glmnet(xg, yg, alpha = alpha, mc.cores = mc.cores)
+  })
 }
 
 #' Filter a TRN at a given lambda for networks fitted using penalized regression.
