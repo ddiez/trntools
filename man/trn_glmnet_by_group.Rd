@@ -4,7 +4,8 @@
 \alias{trn_glmnet_by_group}
 \title{trn_glmnet_by_group}
 \usage{
-trn_glmnet_by_group(x, y, group, alpha = 0.5, mc.cores = 1)
+trn_glmnet_by_group(x, y, group, alpha = 0.5, s = 0.01,
+  low.memory = FALSE, mc.cores = 1)
 }
 \arguments{
 \item{x}{matrix of regulators' activities.}
@@ -14,6 +15,10 @@ trn_glmnet_by_group(x, y, group, alpha = 0.5, mc.cores = 1)
 \item{group}{grouping variable.}
 
 \item{alpha}{control balance between lasso (alpha = 1) and ridge (alpha = 0) penalties.}
+
+\item{s}{value of penalty parameter.}
+
+\item{low.memory}{whether to save memory by returning coefficients only.}
 
 \item{mc.cores}{cores to use for parallel processing.}
 }

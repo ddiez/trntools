@@ -84,22 +84,30 @@ trn_glmnet <- function(x, y, alpha = 0.5, mc.cores = 1) {
 #' @param y matrix of genes' expression levels.
 #' @param group grouping variable.
 #' @param alpha control balance between lasso (alpha = 1) and ridge (alpha = 0) penalties.
+#' @param s value of penalty parameter.
+#' @param low.memory whether to save memory by returning coefficients only.
 #' @param mc.cores cores to use for parallel processing.
 #'
 #' @export
 #'
 #' @examples
-trn_glmnet_by_group <- function(x, y, group, alpha = .5, mc.cores = 1) {
+trn_glmnet_by_group <- function(x, y, group, alpha = .5, s = 0.01, low.memory = FALSE, mc.cores = 1) {
   if (length(group) != nrow(x)) stop("length of group and nrow of x don't agree.")
   if (length(group) != nrow(y)) stop("length of group and nrow of y don't agree.")
 
   groups <- unique(group)
-  lapply(groups, function(g) {
+  mods <- lapply(groups, function(g) {
     sel.group <- group == g
     xg <- x[sel.group, , drop = FALSE]
     yg <- y[sel.group, , drop = FALSE]
-    trn_glmnet(xg, yg, alpha = alpha, mc.cores = mc.cores)
+    mod <- trn_glmnet(xg, yg, alpha = alpha, mc.cores = mc.cores)
+    if (low.memory)
+      trn_filter_glmnet(mod, s = s)
+    else
+      mod
   })
+  names(mods) <- groups
+  mods
 }
 
 #' Filter a TRN at a given lambda for networks fitted using penalized regression.
