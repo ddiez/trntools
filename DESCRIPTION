@@ -10,7 +10,8 @@ Imports:
   tidygraph,
   ggraph,
   igraph,
-  glmnet
+  glmnet,
+  parallel
 Suggests:
   testthat,
   knitr

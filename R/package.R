@@ -9,5 +9,6 @@
 #' @importFrom igraph graph_from_incidence_matrix
 #' @importFrom stats coef lm p.adjust
 #' @importFrom glmnet glmnet
+#' @importFrom parallel mclapply
 #'
 NULL
