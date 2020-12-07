@@ -30,7 +30,7 @@ plot_trn <- function(x, ...) {
 
 #' @rdname plot_trn
 #' @export
-plot_trn.data.frame <- function(x, node.size = 10, label.size = 3, regulator.color = "palevioletred1", target.color = "turquoise3") {
+plot_trn.data.frame <- function(x, node.size = 10, label.size = 3, regulator.color = "palevioletred1", target.color = "turquoise3", color.by = NULL, color.low = "blue", color.mid = "white", color.high = "red") {
   g <- ggraph(x) + theme_graph()
 
   label <- function(x) {
@@ -45,21 +45,35 @@ plot_trn.data.frame <- function(x, node.size = 10, label.size = 3, regulator.col
     g  <- g +
       geom_edge_fan(
         aes(width = abs(activity), colour = c("steelblue1", "palevioletred1")[role]),
-        start_cap = circle(10, 'points'),
-        end_cap = circle(10, 'points'),
-        arrow = arrow(type = "closed", length = unit(10, 'points'))) +
+        start_cap = circle(node.size + 2, 'points'),
+        end_cap = circle(node.size + 2, 'points'),
+        arrow = arrow(type = "closed", length = unit(5, 'points'))) +
       scale_edge_color_identity("role", labels = label, guide = "legend") +
-      scale_edge_width("strength", range = c(1, 2), guide = "legend")
+      scale_edge_width("strength", range = c(.2, 1), guide = "legend")
   }
-  g +
-    geom_node_point(
-      aes(shape = regulator, fill = regulator, color = regulator),
-      size = node.size) +
-    geom_node_text(aes(label = name), size = label.size) +
-    scale_fill_manual(name = "regulator", values = c(target.color, regulator.color)) +
-    scale_color_manual(name = "regulator", values = c(target.color, regulator.color)) +
-    scale_shape_manual(name = "regulator", values = c(21, 22)) +
-    guides(fill = guide_legend(order = 1), color = guide_legend(order = 1), shape = guide_legend(order = 1))
+
+  if (is.null(color.by)) {
+    g <- g +
+      geom_node_point(
+        aes(shape = regulator, fill = regulator, color = regulator),
+        size = node.size) +
+      geom_node_text(aes(label = name), size = label.size) +
+      scale_fill_manual(name = "regulator", values = c(target.color, regulator.color)) +
+      scale_color_manual(name = "regulator", values = c(target.color, regulator.color)) +
+      scale_shape_manual(name = "regulator", values = c(21, 22)) +
+      guides(fill = guide_legend(order = 1), color = guide_legend(order = 1), shape = guide_legend(order = 1))
+  } else {
+    g <- g +
+      geom_node_point(
+        aes(shape = regulator, fill = .data[[color.by]], color = .data[[color.by]]),
+        size = node.size) +
+      geom_node_text(aes(label = name), size = label.size) +
+      scale_color_gradient2(name = "expression", low = color.low, mid = color.mid, high = color.high) +
+      scale_fill_gradient2(name = "expression", low = color.low, mid = color.mid, high = color.high) +
+      scale_shape_manual(name = "regulator", values = c(21, 22)) +
+      guides(shape = guide_legend(order = 1))
+  }
+  g
 }
 
 #' @rdname plot_trn
