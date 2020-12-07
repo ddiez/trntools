@@ -39,15 +39,6 @@ plot_trn.data.frame <- function(x, node.size = 10, label.size = 3, regulator.col
     l
   }
 
-  g <- g + geom_node_point(
-    aes(shape = regulator, fill = regulator, color = regulator),
-    size = node.size) +
-    geom_node_text(aes(label = name), size = label.size) +
-    scale_fill_manual(name = "regulator", values = c(target.color, regulator.color)) +
-    scale_color_manual(name = "regulator", values = c(target.color, regulator.color)) +
-    scale_shape_manual(name = "regulator", values = c(21, 22)) +
-    guides(fill = guide_legend(order = 1), color = guide_legend(order = 1), shape = guide_legend(order = 1))
-
   ne <- attr(x, "graph") %>% activate(edges) %>% as_tibble() %>% nrow()
 
   if (ne > 0) {
@@ -60,7 +51,15 @@ plot_trn.data.frame <- function(x, node.size = 10, label.size = 3, regulator.col
       scale_edge_color_identity("role", labels = label, guide = "legend") +
       scale_edge_width("strength", range = c(1, 2), guide = "legend")
   }
-  g
+  g +
+    geom_node_point(
+      aes(shape = regulator, fill = regulator, color = regulator),
+      size = node.size) +
+    geom_node_text(aes(label = name), size = label.size) +
+    scale_fill_manual(name = "regulator", values = c(target.color, regulator.color)) +
+    scale_color_manual(name = "regulator", values = c(target.color, regulator.color)) +
+    scale_shape_manual(name = "regulator", values = c(21, 22)) +
+    guides(fill = guide_legend(order = 1), color = guide_legend(order = 1), shape = guide_legend(order = 1))
 }
 
 #' @rdname plot_trn
