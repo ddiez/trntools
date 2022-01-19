@@ -1,7 +1,7 @@
 Package: trntools
 Type: Package
 Title: Tools for the analysis of transcriptional regulatory networks
-Version: 0.1.1
+Version: 0.1.2
 Authors@R: person("Diego", "Diez", email = "diego10ruiz@gmail.com", role = c("aut", "cre"))
 Description: Tools for inferring, analyzing and plotting transcriptional regulatory networks.
 Imports:
