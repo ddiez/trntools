@@ -3,7 +3,6 @@
 \docType{package}
 \name{trntools}
 \alias{trntools}
-\alias{trntools-package}
 \title{Tools for the analysis of transcriptional regulatory networks}
 \description{
 Tools for the analysis of transcriptional regulatory networks

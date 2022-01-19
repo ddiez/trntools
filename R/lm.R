@@ -90,7 +90,6 @@ trn_glmnet <- function(x, y, alpha = 0.5, mc.cores = 1) {
 #'
 #' @export
 #'
-#' @examples
 trn_glmnet_by_group <- function(x, y, group, alpha = .5, s = 0.01, low.memory = FALSE, mc.cores = 1) {
   if (length(group) != nrow(x)) stop("length of group and nrow of x don't agree.")
   if (length(group) != nrow(y)) stop("length of group and nrow of y don't agree.")

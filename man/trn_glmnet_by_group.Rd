@@ -4,8 +4,15 @@
 \alias{trn_glmnet_by_group}
 \title{trn_glmnet_by_group}
 \usage{
-trn_glmnet_by_group(x, y, group, alpha = 0.5, s = 0.01,
-  low.memory = FALSE, mc.cores = 1)
+trn_glmnet_by_group(
+  x,
+  y,
+  group,
+  alpha = 0.5,
+  s = 0.01,
+  low.memory = FALSE,
+  mc.cores = 1
+)
 }
 \arguments{
 \item{x}{matrix of regulators' activities.}

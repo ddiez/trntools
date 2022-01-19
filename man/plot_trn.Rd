@@ -8,8 +8,17 @@
 \usage{
 plot_trn(x, ...)
 
-\method{plot_trn}{data.frame}(x, node.size = 10, label.size = 3,
-  regulator.color = "palevioletred1", target.color = "turquoise3")
+\method{plot_trn}{data.frame}(
+  x,
+  node.size = 10,
+  label.size = 3,
+  regulator.color = "palevioletred1",
+  target.color = "turquoise3",
+  color.by = NULL,
+  color.low = "blue",
+  color.mid = "white",
+  color.high = "red"
+)
 
 \method{plot_trn}{tbl_graph}(x, layout = "nicely", ...)
 }
