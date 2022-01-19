@@ -125,3 +125,16 @@ plot_heatmap.data.frame <- function(x, guide = TRUE, limits = NULL) {
 
   p
 }
+
+
+
+#' plot_trn_heatmap
+#'
+#' @param x
+#'
+#' @export
+#'
+plot_trn_heatmap <- function(x) {
+  mycol <- circlize::colorRamp2(c(-1 * max(abs(range(x))), 0, max(abs(range(x)))), c("blue", "white", "red"))
+  ComplexHeatmap::Heatmap(x, show_column_names = FALSE, name = "coef", col = mycol, cluster_rows = FALSE, column_title = "Target genes", row_title = "Transcription factors")
+}
