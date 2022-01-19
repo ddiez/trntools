@@ -138,3 +138,23 @@ plot_trn_heatmap <- function(x) {
   mycol <- circlize::colorRamp2(c(-1 * max(abs(range(x))), 0, max(abs(range(x)))), c("blue", "white", "red"))
   ComplexHeatmap::Heatmap(x, show_column_names = FALSE, name = "coef", col = mycol, cluster_rows = FALSE, column_title = "Target genes", row_title = "Transcription factors")
 }
+
+#' plot_trn_graph
+#'
+#' @param x
+#'
+#' @export
+#'
+plot_trn_graph <- function(x, cutoff = NULL, layout = "nicely", color.by = NULL, seed = 42, ...) {
+  set.seed(seed)
+
+  if (!is.null(cutoff)) {
+    x[abs(x) < cutoff] <- 0
+    x <- x[rowSums(x) != 0, colSums(x) != 0, drop = FALSE]
+  }
+
+  x <- trn2tbl_graph(x)
+  l <- create_layout(x, layout)
+
+  plot_trn(l, color.by = color.by, ...)
+}
