@@ -82,17 +82,26 @@ check_negative <- function(x, y) {
 }
 
 
-#' Filter a TRN at a given FDR.
+#' Get a TRN at a given FDR.
 #'
 #' @param x a TRN model.
 #' @param fdr FDR level.
 #' @param method method for p.adjust().
+#' @param cutoff magnitude cutoff to filter coefficients.
 #'
 #' @export
-trn_filter <- function(x, fdr = 0.01, method = "bonferroni") {
-  xc <- x[["coef"]][-1, , drop = FALSE]
+get_trn <- function(x, fdr = 0.01, method = "bonferroni", cutoff = NULL) {
+  trn <- x[["coef"]][-1, , drop = FALSE]
   xp <- x[["pval"]][-1, , drop = FALSE]
   xp <- p.adjust(xp, method = method)
-  xc[ xp > fdr] <- 0
-  xc
+  trn[ xp > fdr] <- 0
+
+  if (!is.null(cutoff)) {
+    trn[abs(trn) < cutoff] <- 0
+  }
+
+  trn <- trn[rowSums(trn) != 0, colSums(trn) != 0, drop = FALSE]
+  trn <- trn[sort(rownames(trn)), sort(colnames(trn))]
+
+  trn
 }
